@@ -1,0 +1,21 @@
+﻿@model IEnumerable<BlogApp.Models.Articles>
+
+
+<div class="sidebox widget">
+    <h3 class="widget-title section-title">Öne Çıkan Makaleler</h3>
+    <ul class="post-list">
+        @foreach (BlogApp.Models.Articles article in Model)
+        {
+            <li>
+                <div class="icon-overlay"> <a href="/Article/ArticleDetail/@article.Id"><img src="@article.Photos.SmallSize" alt="" /> </a> </div>
+                <div class="meta">
+                    <h5><a href="/Article/ArticleDetail/@article.Id">@article.Title</a></h5>
+                    <em>@article.UploadDate.ToShortDateString() <span class="comments"><a href="#">@article.Comments.Count <i class="icon-chat-1"></i></a></span></em>
+                </div>
+            </li>
+        }
+
+
+    </ul>
+   
+</div>

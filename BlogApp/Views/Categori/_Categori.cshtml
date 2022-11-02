@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BlogApp.Models.Categories>
+
+<div class="sidebox widget">
+    <h3 class="widget-title section-title">Categories</h3>
+    <ul class="circled">
+        @foreach (BlogApp.Models.Categories categori in Model)
+        {
+            <li><a href="/Categori/Index/@categori.Id">@categori.Category (@categori.Articles.Count)</a></li>
+        }
+    </ul>
+</div>
+

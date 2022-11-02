@@ -1,0 +1,43 @@
+﻿@{ 
+    Layout = null;    
+}
+
+
+@model IEnumerable<BlogApp.Models.Articles>
+
+@*Makalenin sadece belli bir kısmı gözükecek(baştan 300 karakterlik kısmı)*@
+@helper ContentSmall(string texts)  
+{
+    if (texts.Length > 300)
+    {
+        @texts.Substring(0, 300)
+    }
+    else
+    {
+        @texts
+    }
+}
+
+<div class="blog-posts col-blog">
+    @foreach (BlogApp.Models.Articles artcle in Model)
+    {
+
+        <div class="post row">
+            <div class="col-sm-4">
+                <figure>
+                    <a href="/Article/ArticleDetail/@artcle.Id">
+                        <div class="text-overlay">
+                            <div class="info"><span>Devamı...</span></div>
+                        </div>
+                        <img src="@artcle.Photos.MediumSize" alt="" />
+                    </a>
+                </figure>
+            </div>
+            <div class="col-sm-8 post-content">
+                <div class="meta"><span class="date">@artcle.UploadDate.ToShortDateString()</span><span class="comments"><a href="#">@artcle.Comments.Count <i class="icon-chat-1"></i></a></span></div>
+                <h2 class="post-title"><a href="/Article/ArticleDetail/@artcle.Id">@artcle.Title</a></h2> 
+                <p>@ContentSmall(artcle.Contents)</p>
+            </div>
+        </div>
+    }
+</div>

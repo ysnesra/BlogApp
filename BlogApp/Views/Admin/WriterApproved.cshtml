@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "WriterApproved";
+}
+
+@model IEnumerable<BlogApp.Models.Users>
+<table>
+
+    @foreach (BlogApp.Models.Users item in Model)
+    {
+        <tr>
+            <td>@item.NameSurname</td>
+            <td><a href="/Admin/WriterApproved/@item.Id"></a>Onay Ver</td>
+        </tr>
+    }
+
+</table>
+
+
+@*2.yol*@
+
+<div class="container">
+    @foreach (BlogApp.Models.Users item in Model)
+    {
+        <div class="row">
+            <div class="col-3">
+                <ul>
+                    <li>@item.NameSurname</li>
+                    <li><a href="/Admin/WriterApproved/@item.Id"></a>Onay Ver</li>
+                </ul>
+            </div>
+
+        </div>
+    }
+</div>

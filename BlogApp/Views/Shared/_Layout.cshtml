@@ -1,0 +1,241 @@
+﻿@using BlogApp.Models;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="style/images/yazılımlogo.jpg">
+    <title>Blog - @ViewBag.Title </title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/style/css/plugins.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/style/css/color/red.css" rel="stylesheet">
+    <link href="~/Content/style/type/bebas.css" rel="stylesheet">
+    <link href="~/Content/style/type/fontello.css" rel="stylesheet">
+
+    @RenderSection("head", false)
+</head>
+<body>
+
+    @{ 
+
+        List<UserRole> userRoleList = new List<UserRole>();  
+
+        string Username = "";            //Öncelikle tanımladık
+        string NameSurname = "";
+
+
+        if (Session["SessionUserRolesList"] != null)    //liste boş değilse(UserRole tablosunun listesi)
+        {
+            userRoleList = Session["SessionUserRolesList"] as List<UserRole>;
+        }
+
+
+        if (Session["SessionUserName"] != null)    //Başlangıçta Username = ""; mi boş tanımladık.Değer gelmezse null gelebilir
+        {
+            Username = Session["SessionUserName"].ToString();
+
+        }
+
+
+        if (Session["SessionNameSurname"] != null)
+        {
+            NameSurname = Session["SessionNameSurname"].ToString();
+
+        }
+
+    }
+    <div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+    <div class="body-wrapper">
+        <div class="navbar default">
+            <div class="navbar-header">
+                <div class="container">
+                    <div class="basic-wrapper">
+                        <a class="btn responsive-menu pull-right" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
+                        <div class="navbar-brand"><a href="/"><img src="~/Content/style/images/logo2.png" alt="" data-src="~/Content/style/images/logo2.png" data-ret="~/Content/style/images/logo2.png" class="retina" /></a></div>
+                    </div>
+                    <nav class="collapse navbar-collapse pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/Home/Index">Anasayfa</a></li>
+
+                            @{
+                                int Writter = 0;
+
+                                if (userRoleList.Count > 0)   //Listede hiç eleman olmama durumuda olabilir.
+                                {
+                                    var dbWritter = userRoleList.FirstOrDefault(i => i.RolesId == 3);
+
+
+                                    Writter = dbWritter.RolesId;
+                                }
+                            }
+                            @if (Writter == 3)
+                            //Kullanıcının rolü Writer a eşitse "Yazar Paneli" butonu gözükecek
+                            {
+
+                                <li class="current dropdown">
+                                    <a href="Users/Index" class="dropdown-toggle js-activated">Yazar Paneli</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Article/ArticleAdd">Makale Ekle</a></li>
+                                        <li><a href="Writer/Followers">Takipçileri</a></li>
+                                        <li><a href="Writer/MyArticle">Makalelerim</a></li>
+
+                                    </ul>
+                                </li>
+                            }
+
+
+                            @{
+                                int Admin = 0;
+
+                                if (userRoleList.Count > 0)
+                                {
+                                    var dbAdmin = userRoleList.FirstOrDefault(i => i.RolesId == 2);
+
+                                    if (dbAdmin != null)
+                                    {
+                                        Admin = dbAdmin.RolesId;
+                                    }
+
+                                }
+                            }
+                            @if (Admin == 2)    //Kullanıcının rolü Admin a eşitse "Admin Paneli" butonu gözükecek
+                            {
+                                <li class="dropdown">
+                                    <a href="Admin/Index" class="dropdown-toggle js-activated">Admin Paneli</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Article/ArticleAdd">Makale Ekle</a></li>
+                                        <li><a href="/Categori/CategoriAdd">Kategori Ekle</a></li>
+                                        <li><a href="/Tag/TagAdd">Etiket Ekle</a></li>
+                                        <li><a href="/Admin/RoleAdd">Role Ekle</a></li>
+                                        <li><a href="/Admin/UserAdd">Kullanıcı Ekle</a></li>
+                                        <li><a href="/Admin/WriterApprove">Yazar Onayları</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                
+                            @if (Username == "")   //Username'e Admin yada Writer atanmamışsa normal kullanıcıdır yada hiç üye değildir o zaman bu butonları görebilir.
+                            {
+                                <li>
+                                    <a href="/Writer/WriterDo" class="dropdown-toggle js-activated">Yazar Ol</a>
+
+                                </li>
+                            }
+
+                            @if (Username == "")  //Kimlik doğrulanmadıysa(Giriş yapmadıysa)
+                            {
+                                <li>
+                                    <a href="/Users/SignUp" class="dropdown-toggle js-activated">Üye ol</a>
+
+                                </li>
+                            }
+
+
+                            @if (Username != "")  //Authentice olduysa "Çıkış yap " butonu gözükecek.Yoksa gözükmeyeck 
+                            {
+
+                                <li><a href="/User/Profile"> @NameSurname </a></li>
+
+                                <li><a href="/Users/Logout">Cikis Yap</a></li>
+
+                            }
+                            else
+                            {
+                                <li><a href="/Users/Login">Giris Yap</a></li>
+                            }
+
+                            <li class="dropdown social-dropdown pull-right">
+                                <div class="share btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-heart-1"></i></div>
+                                <ul class="button-group dropdown-menu dropdown-menu-right share-links">
+                                    <li><a href="#" class="btn"><i class="icon-s-facebook"></i></a></li>
+                                    <li><a href="#" class="btn"><i class="icon-s-twitter"></i></a></li>
+                                    <li><a href="#" class="btn"><i class="icon-s-pinterest"></i></a></li>
+                                </ul>
+                            </li>
+                            <!--/social-dropdown -->
+                        </ul>
+                    <!--/.navbar-nav -->
+                    </nav>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.container -->
+            </div>
+            <!--/.navbar-header -->
+        </div>
+        <!--/.navbar -->
+        <div class="offset"></div>
+        <div class="dark-wrapper page-title">
+            <div class="container inner">
+                <h1> Bilgisayar Mühendisleri Platformu </h1>
+            </div>
+            <!--/.container -->
+        </div>
+        <!--/.page-title -->
+
+        <div class="container inner">
+            <div class="row">
+                <div class="col-sm-8 content">
+                   @RenderBody()   
+                </div>
+                <!-- /.content -->
+                <aside class="col-sm-4 sidebar lp30">
+                    @{
+                        Html.RenderAction("_PopularArticles", "Home");
+                    }
+                    <!-- /.widget -->
+                    @*@{
+                        Html.RenderPartial(" _AboutUsBlog");
+                    }*@
+                    <!-- /.widget -->
+                    @{
+                        Html.RenderPartial("_Search");
+                    }
+                    <!-- /.widget -->
+
+                    @{
+                        Html.RenderAction("_Categori", "Categori");
+                    }
+
+                    <!-- /.widget -->
+                    @{
+                        Html.RenderAction("_Tag", "Tag");
+                    }
+                    <!-- /.widget -->
+                </aside>
+                <!-- /.col-sm-4 .sidebar -->
+
+            </div>
+            <!-- /.row -->
+        </div>
+        <!--/.container -->
+        <footer class="footer black-wrapper">
+            
+            <!-- .container -->
+
+            <div class="sub-footer">
+                <div class="container">
+                    <p class="pull-left">© 2022 BM_Blog </a>.</p>
+                    <ul class="footer-menu pull-right">
+                        <li><a href="#">Anasayfa</a></li>
+                        <li><a href="#">Hakkimizda</a></li>
+                        <li><a href="#">Iletisim</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+    </div>
+    <!--/.body-wrapper -->
+    <script src="~/Content/style/js/jquery.min.js"></script>
+    <script src="~/Content/style/js/bootstrap.min.js"></script>
+    <script src="~/Content/style/js/plugins.js"></script>
+    <script src="~/Content/style/js/scripts.js"></script>
+</body>
+</html>

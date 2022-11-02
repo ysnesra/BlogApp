@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<form action="/Users/SignUp" method="post">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <table>
+        <tr>
+            <td>
+                Adı Soyadı :
+            </td>
+            <td>
+                <input type="text" name="NameSurname" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kullanıcı Adı :
+            </td>
+            <td>
+                <input type="text" name="UserName" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Parola :
+            </td>
+            <td>
+                <input type="password" name="Password" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mail Adresi :
+            </td>
+            <td>
+                <input type="text" name="Email" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Doğum Tarihi :
+            </td>
+            <td>
+                <input type="date" name="Birthdate" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cinsiyet :
+            </td>
+            <td>
+                <input type="radio" name="Gender" value="bay" />
+                <span>Bay</span>
+                <input type="radio" name="Gender" value="bayan" />
+                <span>Bayan</span>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="name" value="Üye Ol" />
+            </td>
+        </tr>
+    </table>
+</form>
+

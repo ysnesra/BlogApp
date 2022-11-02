@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a7f01a00211745aeb4b57f391959fe09" Name="Diagram1">
+        <EntityTypeShape EntityType="BlogDbModel.Articles" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Categories" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Comments" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Photos" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Roles" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Tags" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.UserRole" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlogDbModel.Users" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="BlogDbModel.FK_Articles_Categories1" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_Articles_Photos" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_Articles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_Comments_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_UserRole_Roles1" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_UserRole_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_UserRole_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.ArticleTag" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.WriterFollow" ManuallyRouted="false" />
+        <AssociationConnector Association="BlogDbModel.FK_Users_Photos" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

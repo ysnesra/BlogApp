@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BlogApp.Models.Tags>
+
+<div class="sidebox widget">
+    <h3 class="widget-title section-title">Tags</h3>
+    <ul class="tag-list">
+        @foreach (BlogApp.Models.Tags tag in Model)
+        {
+            <li><a href="/Tag/Index/@tag.Id">@tag.Tag (@tag.Articles.Count)</a></li>
+        }
+
+
+    </ul>
+    <!-- /.tag-list -->
+
+</div>
